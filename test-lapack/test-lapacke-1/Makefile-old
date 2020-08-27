@@ -1,0 +1,40 @@
+FLNAME = testdsyev
+#  example example1 example5 testdsyev
+
+TARGETS = $(FLNAME).out
+OBJ = $(FLNAME).c
+
+FC       = gfortran
+CC       = gcc
+CC_FLAGS   = -Wall
+LAST_FLAGS = -lgfortran -lm -lrt
+
+OPTS    = -O2 -frecursive
+NOOPT   = -O0 -frecursive
+
+#CBLAS_FLAGS	 = -I../lib-lapack/include -L../lib-lapack/lib -lcblas -lblas
+#COMMON_INC  =  -I./common ./common/blaio.c
+
+CBLASLIB     = ../lib-lapack/lib/libcblas.a
+TMGLIB       = ../lib-lapack/lib/libtmglib.a
+
+BLASLIB      = ../lib-lapack/lib/librefblas.a
+LAPACKLIB    = ../lib-lapack/lib/liblapack.a
+LAPACKELIB   = ../lib-lapack/lib/liblapacke.a
+
+LIBRARIES = -I../lib-lapack/include \
+		$(LAPACKELIB) $(LAPACKLIB) $(BLASLIB) $(TMGLIB)
+
+# $(LAPACKELIB) $(LAPACKLIB) $(CBLASLIB) $(BLASLIB)
+
+all : $(TARGETS)
+	@echo Make Complete
+
+$(TARGETS) : $(OBJ)
+	$(CC) $(CC_FLAGS) $(OBJ) $(COMMON_INC) $(LIBRARIES) -o $(TARGETS) $(LAST_FLAGS)
+
+run :
+	./$(TARGETS)
+
+clean :
+	rm -rf *.out *~ *.o $(TARGETS)

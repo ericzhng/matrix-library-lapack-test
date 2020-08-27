@@ -1,0 +1,2 @@
+#TargetFrameworkVersion=v4.0:PlatformToolSet=v120:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
+Release|x64|C:\10OpenCodes\BasicLibraries\4testing\test-lapack-mingw\simple_test\|
