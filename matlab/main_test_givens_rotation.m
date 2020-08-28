@@ -36,7 +36,6 @@ G2 = [c2, s2;
 disp(G1);
 disp(G2);
 
-
 % comparison with BLAS drot_ function
 dx = [2.4, 4.0, 1, 2]';
 dy = [1.0, 2.0, 2, 4]';

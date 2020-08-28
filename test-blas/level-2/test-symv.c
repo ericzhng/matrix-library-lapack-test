@@ -1,4 +1,4 @@
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void dsymv_(const char *uplo, const int *N, double *alpha,
 				   double *A, const int *lda, double *X, const int *incx,
@@ -31,14 +31,14 @@ int main()
 	double alpha = 1.0;
 	double beta = 1.0;
 
-	printd_mat("A", 3, 3, A);
-	printd_vec("X", 3, X);
-	printd_vec("Y", 3, Y);
+	print_mat(3, 3, A);
+	print_vec(3, X);
+	print_vec(3, Y);
 
 	dsymv_(&uplo, &N, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 
-	printd_vec("X", 3, X);
-	printd_vec("Y", 3, Y);
+	print_vec(3, X);
+	print_vec(3, Y);
 
 	return 0;
 }

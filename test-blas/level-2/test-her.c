@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void dger_( //char *uplo, char *trans, char *diag, 
 					const int *M, const int *N, double *alpha,
@@ -34,7 +34,7 @@ int main() {
 
 	dger_(&M, &N, &alpha, X, &one, Y, &one, A, &lda);
 
-	printd_mat("A", 3, 3, A);
+	print_mat(3, 3, A);
 
 	return 0;
 }

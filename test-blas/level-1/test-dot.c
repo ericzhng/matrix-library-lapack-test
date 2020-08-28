@@ -14,6 +14,7 @@ extern float sdot_(const int *N, const float *a, const int *inca,
 extern double ddot_(const int *N, const double *a, const int *inca, 
 			const double *b, const int *incb);
 
+
 extern double dsdot_(const int *N, const float *a, const int *inca, 
 			const float *b, const int *incb);
 
@@ -45,19 +46,18 @@ int main(int argc, char **argv) {
 	int n = 3;
 	int one = 1;
 
-
 	float sA[3] = {1.0, 2.0, 3.0};
 	float sB[3] = {4.0, 5.0, 6.0};
 
 	float sResult1 = sdot_(&n, sA, &one, sB, &one);
-	double sResult2 = dsdot_(&n, sA, &one, sB, &one);
 	printf("sResult is: %f \n", sResult1);
+
+	double sResult2 = dsdot_(&n, sA, &one, sB, &one);
 	printf("sResult is: %lf \n", sResult2);
 
 	float alpha = 2.0;
 	float sResult3 = sdsdot_(&n, &alpha, sA, &one, sB, &one);
 	printf("sResult is: %f \n", sResult3);
-
 
 
 	// you can define the arrays in one of two ways

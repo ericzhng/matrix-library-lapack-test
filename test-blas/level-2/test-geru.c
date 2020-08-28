@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void cgeru_( //char *uplo, char *trans, char *diag, 
 					const int *M, const int *N, complex *alpha,
@@ -34,7 +34,7 @@ int main() {
 	
 	cgeru_(&M, &N, &alpha, X, &one, Y, &one, A, &lda);
 
-	printc_mat("A", 3, 3, A);
+	print_mat(3, 3, &A[0]);
 
 	return 0;
 }

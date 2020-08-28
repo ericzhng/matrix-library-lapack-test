@@ -126,16 +126,15 @@ void print_mat_complex16(const char *name, int row, int column, complex16 *A)
     printf("\n");
 }
 
-#define print_mat(name, row, column, A) _Generic((A), float *: print_mat_float, \
+#define print_mat(row, column, A) _Generic((A), float *: print_mat_float, \
                                                       double *: print_mat_double, \
                                                       complex *: print_mat_complex,\
-                                                      complex16 *: print_mat_complex16)(name, row, column, A)
+                                                      complex16 *: print_mat_complex16)(#A, row, column, A)
 
-#define print_vec(name, row, A) _Generic((A), float *: print_vec_float, \
+#define print_vec(row, A) _Generic((A), float *: print_vec_float, \
                                                       double *: print_vec_double, \
                                                       complex *: print_vec_complex,\
-                                                      complex16 *: print_vec_complex16)(name, row, A)
-
+                                                      complex16 *: print_vec_complex16)(#A, row, A)
 
 // Print a vector with its name and location
 #define PRINT_s(name, size) print_vec1(#name, name, size)

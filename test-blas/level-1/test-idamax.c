@@ -9,7 +9,7 @@ int main() {
 	int one = 1;
 	int N = 5;
 	
-	double DX[5] = {2, 4, 2, 5, 7.0, 7.0}; // holds 1,2,3,4,5
+	double DX[5] = {2, 4, 2, 5, 7.0}; // holds 1,2,3,4,5
 	printd(5, DX);
 
 	int pos = idamax_(&N, DX, &one);

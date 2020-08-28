@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 // this means matrix A is saved in the format of banded format
 extern void chpmv_(const char *uplo, const int *N, const complex *alpha, 
@@ -41,7 +41,7 @@ int main()
 
 	chpmv_(&uplo, &N, &alpha, A, X, &inc, &beta, Y, &inc);
 
-	printc_vec("Y", 3, Y);
+	print_vec(3, &Y[0]);
 
 	return 0;
 }

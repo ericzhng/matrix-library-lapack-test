@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void sspmv_( char *uplo, const int *N, const float *alpha, float *AP, float *X,
                 	const int *incX, const float *beta, float *Y, const int *incY);

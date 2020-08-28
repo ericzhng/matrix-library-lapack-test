@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void stbsv_( char *uplo, char *trans, char *diag, 
 					const int *N, const int *K,

@@ -1,11 +1,12 @@
 #ifndef BLAS_H
 #define BLAS_H
+
 /** \file   blas.h
  *  \brief  Header file for Fortran BLAS.
  */
 
-struct complex {float real,imag;};
-struct complex16 {double real,imag;};
+// struct complex {float real,imag;};
+// struct complex16 {double real,imag;};
 
 #define F77_CALL(x)  x ## _
 #define F77_NAME(x)  F77_CALL(x)

@@ -1,4 +1,4 @@
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void sgemv_(const char *, const int *M, const int *N, float *alpha,
 				   float *A, const int *lda, float *X, const int *incx,
@@ -31,7 +31,7 @@ int main()
 
 	int ldaF = 5;
 
-	printf_mat("Af", 5, 3, Af);
+	print_mat(5, 3, &Af[0]);
 
 	float Xf[3] = {3,2,1};
 	float Yf[4] = {4,5,2,3};
@@ -43,35 +43,35 @@ int main()
 
 	sgemv_(&trans, &M1, &N1, &alphaf, &Af[1], &ldaF, Xf, &inc, &betaf, Yf, &inc);
 
-	printf_vec("Yf", M1, Yf);
+	print_vec(M1, &Yf[0]);
 
 
 
 	// random matrix, another example
 	//	srand(time(NULL));
-	int M = 5, N = 5;
+	const int M = 5, N = 5;
 
 	double A[M * N];
-	init(A, M, N);
+	set_random(A, M, N);
 
 	int lda = M;
 
 	double X[M];
-	init(X, M, 1);
+	set_random(X, M, 1);
 	double Y[M];
-	init(Y, M, 1);
+	set_random(Y, M, 1);
 
 	double alpha = 1.0;
 	double beta = 2.0;
 
-	printd_mat("A", M, N, A);
-	printd_vec("X", M, X);
-	printd_vec("Y", M, Y);
+	print_mat(M, N, A);
+	print_vec(M, X);
+	print_vec(M, Y);
 
 	dgemv_(&trans, &M, &N, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 
-	printd_vec("X", M, X);
-	printd_vec("Y", M, Y);
+	print_vec(M, X);
+	print_vec(M, Y);
 
 	return 0;
 }

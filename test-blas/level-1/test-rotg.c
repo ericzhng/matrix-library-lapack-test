@@ -16,13 +16,16 @@ void printd(const int n, double *X);
 int main() {
 	int one = 1;
 	
-/*	// conventional givens rotation
+	// conventional givens rotation
 
 	double DA_t = 2.0;
 	double DB_t = 3.0;
-	
-	double C_t = 0, S_t = 0;
-	double *C = &C_t, *S = &S_t;
+
+	double C_t = 0;
+	double S_t = 0;
+
+	double *C = &C_t;
+	double *S = &S_t;
 	
 	drotg_(&DA_t, &DB_t, C, S);
 	
@@ -31,8 +34,8 @@ int main() {
 	
 	printf("C = %f\n", *C);
 	printf("S = %f\n", *S);
-
 	
+
 	const int N = 4;
 	double DX[] = {2.4, 4.0, 1, 2};
 	double DY[] = {1.0, 2.0, 2, 4};
@@ -41,11 +44,13 @@ int main() {
 	
 	printd(N, DX);
 	printd(N, DY);
-*/
+
 	
+
 	// modified givens rotation
-	
-	double DD1_t = 2, DD2_t = 3, DX1_t = 2, DY1_t = 1;
+	// https://www.smcm.iqfr.csic.es/docs/intel/mkl/mkl_manual/index.htm#bla/functn_rotg.htm#functn_rotg
+
+	double DD1_t = 2, DD2_t = 2, DX1_t = 2, DY1_t = 3;
 
 	double *DD1 = &DD1_t;
 	double *DD2 = &DD2_t;
@@ -56,6 +61,10 @@ int main() {
 	
 	drotmg_(DD1, DD2, DX1, DY1, PARAM);
 	
+	printf("print modified Givens rotation results:\n");
+	printd(1, DD1);
+	printd(1, DD2);
+	printd(1, DX1);
 	printd(5, PARAM);
 	
 	const int N1 = 4;
@@ -66,7 +75,7 @@ int main() {
 	
 	printd(N1, DX4);
 	printd(N1, DY4);
-	
+
 	return 0;
 }
 

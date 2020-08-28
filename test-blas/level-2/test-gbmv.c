@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 // this means matrix A is saved in the format of banded format
 extern void dgbmv_(const char *, const int *M, const int *N, const int *KL, const int *KU,
@@ -17,7 +17,7 @@ int main()
 					  //	char side = 'L';	// 'Left', 'Right'
 
 	//	srand(time(NULL));
-                                          
+
 	// | 1.0  1.0  1.0  0.0 |
 	// | 2.0  2.0  2.0  2.0 |
 	// | 3.0  3.0  3.0  3.0 |
@@ -25,14 +25,14 @@ int main()
 	// | 0.0  5.0  5.0  5.0 |
 	
 	int M = 5, N = 4;
-
+	
 	// general band matrix
 	double A[6 * 4] = {[2] = 1, 2, 3, 4,
 					   [7] = 1, 2, 3, 4, 5,
 					   [12] = 1, 2, 3, 4, 5,
 					   [18] = 2, 3, 4, 5};
 
-	printd_mat("A", 6, 4, A);
+	print_mat(6, 4, &A[0]);
 
 	int kl = 3;
 	int ku = 2;
@@ -48,7 +48,7 @@ int main()
 
 	dgbmv_(&trans, &M, &N, &kl, &ku, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 	
-	printd_vec("Y", 5, Y);
+	print_vec(5, &Y[0]);
 
 	return 0;
 }

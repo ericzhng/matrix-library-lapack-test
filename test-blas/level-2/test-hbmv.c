@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 // this means matrix A is saved in the format of banded format
 extern void chbmv_(const char *uplo, const int *N, const int *K, const complex *alpha, 
@@ -43,7 +43,7 @@ int main()
 	// A    =  | (1.0, 1.0) (2.0, 2.0) (3.0, 3.0) (4.0, 4.0) (5.0, 5.0)   .            .     |
 	//         | (1.0, 1.0) (2.0, 2.0) (3.0, 3.0) (4.0, 4.0)   .          .            .     |
 
-	printc_mat("A", 4, 7, A);
+	print_mat(4, 7, A);
 
 	complex X[7] = {{1,1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}};
 	complex Y[7] = {{1,1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}};
@@ -56,7 +56,7 @@ int main()
 
 	chbmv_(&uplo, &N, &K, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 
-	printc_vec("Y", 7, Y);
+	print_vec(7, Y);
 
 	return 0;
 }

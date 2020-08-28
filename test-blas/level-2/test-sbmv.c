@@ -1,4 +1,4 @@
-#include "../myutils.h"
+#include "myutils.h"
 
 extern void dsbmv_(const char *uplo, const int *N, const int *K, double *alpha,
 				   double *A, const int *lda, double *X, const int *incx,
@@ -43,14 +43,14 @@ int main()
 	double alpha = 2.0;
 	double beta = 10.0;
 
-	printd_mat("A", 4, 7, A);
-	printd_vec("X", N, X);
-	printd_vec("Y", N, Y);
+	print_mat(4, 7, A);
+	print_vec(N, X);
+	print_vec(N, Y);
 
 	dsbmv_(&uplo, &N, &K, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 
-	printd_vec("X", N, X);
-	printd_vec("Y", N, Y);
+	print_vec(N, X);
+	print_vec(N, Y);
 
 	return 0;
 }

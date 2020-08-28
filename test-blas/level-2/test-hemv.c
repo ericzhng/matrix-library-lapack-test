@@ -1,5 +1,5 @@
 
-#include "../myutils.h"
+#include "myutils.h"
 
 // this means matrix A is saved in the format of banded format
 extern void chemv_(const char *uplo, const int *N, const complex *alpha, 
@@ -30,7 +30,7 @@ int main()
 	// A    =  | (3.0, -5.0)  (7.0, .  )     .      |
 	//         | (2.0,  3.0)  (4.0, 8.0) (6.0,  . ) |
 
-	printc_mat("A", 3, 3, A);
+	print_mat(3, 3, A);
 
 	complex X[3] = {{1,2}, {4, 0}, {3, 4}};
 	complex Y[3] = {{1,0}, {2, -1}, {2, 1}};
@@ -42,7 +42,7 @@ int main()
 
 	chemv_(&uplo, &N, &alpha, A, &lda, X, &inc, &beta, Y, &inc);
 
-	printc_vec("Y", 3, Y);
+	print_vec(3, Y);
 
 	return 0;
 }
