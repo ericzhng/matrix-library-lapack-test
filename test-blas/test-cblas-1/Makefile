@@ -1,13 +1,9 @@
-
-
 # define compiler and compiler flag variables
 CC		= gcc
 CFLAGS = -O3 -Wall
 CPPFLAGS = -O3 -Wall -std=c++11
 LDFLAGS = -lm -lrt -lgfortran
 
-SOFTWARE_DIR = /home/ericzhng/software
-LDINC = -I$(SOFTWARE_DIR)/blas/include
 CBLAS_FLAGS	= $(CBLAS_LIB) $(BLAS_LIB)
 
 # define source folder (src or .) and its content

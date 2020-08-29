@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>     // std::cout
 
 typedef struct {float real,imag;} complex;
 typedef struct {double real,imag;} complex16;
 
-extern void dgemm_(const char *transa, const char *transb, const int *m, const int *n, const int *k, 
+// dgesv
+extern "C" {
+
+void dgemm_(const char *transa, const char *transb, const int *m, const int *n, const int *k, 
                   const double *alpha, 
                   const double *a, const int *lda, const double *b, const int *ldb, const double *beta, 
                   const double *c, const int *ldc);
+}
 
 void init(double *matrix, int row, int column) {
   for (int j = 0; j < column; j++) {

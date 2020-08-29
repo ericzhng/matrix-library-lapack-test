@@ -1,5 +1,20 @@
-#include "lapack_c_interface.h"
-#include "utils.h"
+#include <stdio.h>
+#include <iostream>     // std::cout
+
+void print_mat_double(const char *name, int row, int column, double *A)
+{
+    printf(" == Matrix %s (%d X %d): == \n", name, row, column);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < column; j++)
+        {
+            printf(" %.5f  ", A[j * row + i]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+#define print_mat(row, column, A) print_mat_double(#A, row, column, A)
 
 // dgesv
 extern "C" {
@@ -43,17 +58,23 @@ extern "C" {
 
 int main()
 {
-	int i, j;
-	char no = 'N', tr = 'T';
-	int m = 5, k = 6, n = 7;
+	char no = 'N'; // tr = 'T';
+	int m = 5, n = 7, icommon = 6;
 	double alpha = 1.0, beta = 0.0;
-	double **a, **b, **c;
-	int lda = n, ldb = k, ldc = n;
+	int lda = m, ldb = icommon, ldc = m;
 
 	// a[n][n] contiguous 2d array
-	a = dmatrix_malloc(m, k);
-	b = dmatrix_malloc(k, n);
-	c = dmatrix_malloc(m, n);
+	double** a = new double*[m];
+	for(int i = 0; i < m; ++i)
+		a[i] = new double[icommon];
+
+	double** b = new double*[icommon];
+	for(int i = 0; i < icommon; ++i)
+		b[i] = new double[n];
+
+	double *c = new double[m*n];
+	for(int i = 0; i < m*n; ++i)
+		c[i] = 0.0;
 
 	// populate matrix a 
 	a[0][0]=2.3; a[0][1]=3.2; a[0][2]=3.4; a[0][3]=5.5; a[0][4]=2.0; a[0][5]=2.1; 
@@ -70,16 +91,25 @@ int main()
 	b[4][0]=0.2; b[4][1]=4.4; b[4][2]=2.2; b[4][3]=5.4; b[4][4]=2.4; b[4][5]=2.1; b[4][6]=1.1;
 	b[5][0]=1.2; b[5][1]=5.4; b[5][2]=3.2; b[5][3]=6.4; b[5][4]=3.4; b[5][5]=3.1; b[5][6]=1.1;
 
-	print_dmatrix(a, m, k);
-	print_dmatrix(b, k, n);
+	print_mat(m, icommon, a[0]);
+	print_mat(icommon, n, b[0]);
 
 	// matrix-vector product
-	dgemm_(&no, &no, &n, &m, &k, &alpha, &b[0][0], &lda, &a[0][0], &ldb, &beta, &c[0][0], &ldc);
+	dgemm_(&no, &no, &m, &n, &icommon, &alpha, &a[0][0], &lda, &b[0][0], &ldb, &beta, &c[0], &ldc);
 
-	print_dmatrix(c, m, n);
+	print_mat(m, 1, c);
 
-	dmatrix_dealloc(a);
-	dmatrix_dealloc(b);
-	dmatrix_dealloc(c);
+	printf("free a\n");
+	for(int i = 0; i < m; ++i)
+		delete [] a[i];
+	delete [] a;
+
+	printf("free b\n");
+	for(int i = 0; i < icommon; ++i)
+		delete [] b[i];
+	delete [] b;
+
+	delete[] c;
+
 	return 0;
 }

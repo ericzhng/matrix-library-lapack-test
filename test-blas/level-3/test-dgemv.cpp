@@ -1,5 +1,20 @@
-#include "lapack_c_interface.h"
-#include "utils.h"
+#include <stdio.h>
+#include <iostream>     // std::cout
+
+void print_mat_double(const char *name, int row, int column, double *A)
+{
+    printf(" == Matrix %s (%d X %d): == \n", name, row, column);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < column; j++)
+        {
+            printf(" %.5f  ", A[j * row + i]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+#define print_mat(row, column, A) print_mat_double(#A, row, column, A)
 
 // dgesv
 extern "C" {
@@ -55,16 +70,13 @@ int main()
 				{4.6, 7.5, 3.0, 0.3, 4.5, 4.4},
 				{0.2, 4.4, 2.2, 5.4, 2.4, 2.1} };
 
-	print_dmatrix(&a[0][0], m, n);
-	print_dvector(x, n);
+	print_mat(m, n, a[0]);
+	print_mat(n, 1, x);
 
 	// matrix-vector product
 	dgemv_(&tr, &n, &m, &alpha, &a[0][0], &lda, x, &incx, &beta, y, &incy);
 
-	print_dvector(y, m);
+	print_mat(m, 1, y);
 
-	// dmatrix_dealloc(a);
-	//dvector_dealloc(x);
-	//dvector_dealloc(y);
 	return 0;
 }

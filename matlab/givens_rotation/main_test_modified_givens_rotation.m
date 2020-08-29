@@ -10,7 +10,6 @@ x = sqrt(d).*x1;
 
 nrm2 = sqrt(sum(x1.^2));
 
-
 % [c2, s2, r] = givens_rotation_v2(x);
 
 params = [1, 2/3.0, 0, 0, 2/3.0];
