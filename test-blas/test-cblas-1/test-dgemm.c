@@ -1,12 +1,9 @@
-// #ifdef __APPLE__
-// #include <Accelerate/Accelerate.h> /* The MacOS X blas/lapack */
-// #else
-#include <cblas.h> /* C BLAS          BLAS  */
-// #endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include "cblas.h" /* C BLAS          BLAS  */
 
 void init(double *matrix, int row, int column) {
   for (int j = 0; j < column; j++) {

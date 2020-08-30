@@ -1,21 +1,27 @@
 # define compiler and compiler flag variables
 CC		= gcc
-CFLAGS = -O3 -Wall
-CPPFLAGS = -O3 -Wall -std=c++11
-LDFLAGS = -lm -lrt -lgfortran
+CFLAGS 	= -O3 -Wall
+CPPFLAGS= -O3 -Wall -std=c++11
 
-CBLAS_FLAGS	= $(CBLAS_LIB) $(BLAS_LIB)
+LIBHOME = $(HOME)/matrix-library/lapack/3.8.0
+BLASLIB    = $(LIBHOME)/lib64/libblas.a
+CBLASLIB   = $(LIBHOME)/lib64/libcblas.a
+LIBS := -L$(LIBHOME)/lib64
+INC	:=  -I$(LIBHOME)/include
+
+# LDFLAGS :=  $(CBLASLIB) $(BLASLIB)
+LDFLAGS := -lm -lrt $(LIBS) -lcblas -lblas -lgfortran 
+CFLAGS = -O3 -Wall $(INC) #	-m64 -fPIC 
 
 # define source folder (src or .) and its content
 SRCDIR	= .
+TESTNAME = test-dgemm
 
 # find all other file names or specify them
-SUF  ?= .c
-SRCS := $(shell find $(SRCDIR) -name '*$(SUF)' -or -name '*.cpp')
-ifeq ($(SRCDIR),.)
-SRCS1 = $(notdir $(SRCS))
-endif
-SRCOBJS = $(SRCS1:%.c=$(SRCDIR)/%.o)
+# SRCS := $(shell find $(SRCDIR) -name '*.c' -or -name '*.cpp')
+SRCS = $(SRCDIR)/$(TESTNAME)
+
+SRCOBJS = $(SRCS:%.c=$(SRCDIR)/%.o)
 TARGETS := $(patsubst %.o,%,$(SRCOBJS))
 
 default: $(TARGETS)
@@ -23,14 +29,16 @@ default: $(TARGETS)
 
 # pattern rules to compile objectives
 $(TARGETS): %: %.o
-	$(CC) $(CFLAGS) $(LDINC) -o $@ $< $(CBLAS_FLAGS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $< $(CBLAS_FLAGS) $(LDFLAGS)
 	rm $<
 	./$@ > $@.out
 
 .c.o:
-	$(CC) $(CFLAGS) $(LDINC) -c $<
+	@echo ===================== $@ ===========================
+	$(CC) $(CFLAGS) -c $<
 .cpp.o:
-	$(CC) $(CPPFLAGS) $(LDINC) -c $<
+	@echo ===================== $@ ===========================
+	$(CC) $(CPPFLAGS) -c $<
 
 clean:
 	rm -rf *.o $(TARGETS_RUN)
