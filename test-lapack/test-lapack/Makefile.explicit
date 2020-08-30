@@ -1,0 +1,43 @@
+CC     = gcc
+CFLAGS = -O3 -Wall -Wno-comment
+
+LDFLAGS = -lm -lrt -lgfortran 
+LDINC = -I$(CLAPACK_DIR)/include
+EXTRA_LDFLAGS = -L$(LAPACK_DIR)/lib -llapack -lblas
+
+default: all
+
+all: geev gels getr gtsv syev
+
+geev: src/test-geev.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-geev.c -o src/test-geev $(EXTRA_LDFLAGS) $(LDFLAGS)
+	./src/test-geev
+
+gels: src/test-gels.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-gels.c -o src/test-gels $(EXTRA_LDFLAGS) $(LDFLAGS) 
+	./src/test-gels
+
+gesv: src/test-gesv.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-gesv.c -o src/test-gesv $(EXTRA_LDFLAGS) $(LDFLAGS) 
+	./src/test-gesv
+
+getr: src/test-getr.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-getr.c -o src/test-getr $(EXTRA_LDFLAGS) $(LDFLAGS) 
+	./src/test-getr
+
+gtsv: src/test-gtsv.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-gtsv.c -o src/test-gtsv $(EXTRA_LDFLAGS) $(LDFLAGS) 
+	./src/test-gtsv
+
+syev: src/test-syev.c
+	$(CC) $(CFLAGS) $(LDINC) src/test-syev.c -o src/test-syev $(EXTRA_LDFLAGS) $(LDFLAGS) 
+	./src/test-syev
+
+clean:
+	rm -f src/test-geev src/test-gels src/test-gesv src/test-getr src/test-gtsv src/test-syev
+
+help:
+	-@echo "make dgemv : makes the executible "dgemv" for dgemv_example.cpp"
+	-@echo "make dgemm : makes the executible "dgemm" for dgemm_example.cpp"
+	-@echo "make dgesv : makes the executible "dgesv" for dgesv_example.cpp"
+	-@echo "make dgetrf: makes the executible "dgetrf" for dgesv_example.cpp"
