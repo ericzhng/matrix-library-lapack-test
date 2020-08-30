@@ -51,13 +51,13 @@ int main(int argc, char **argv) {
       F77_dgemm("T", "N", &m, &n, &k, &ALPHA, A, &lda, B, &ldb, &BETA, C, &ldc);
     }
     if (info == 1) {
+      printf("Checking if F77_dgemm fails on parameter 4\n");
       m = 0;
       n = INVALID;
       k = 0;
       lda = 1;
       ldb = 1;
       ldc = 1;
-      printf("Checking if F77_dgemm fails on parameter 4\n");
       F77_dgemm("N", "T", &m, &n, &k, &ALPHA, A, &lda, B, &ldb, &BETA, C, &ldc);
     }
     if (info == 2) {

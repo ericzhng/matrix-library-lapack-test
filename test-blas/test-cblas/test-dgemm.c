@@ -1,9 +1,10 @@
 
+#include <cblas.h> /* C BLAS          BLAS  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include "cblas.h" /* C BLAS          BLAS  */
 
 void init(double *matrix, int row, int column) {
   for (int j = 0; j < column; j++) {
@@ -23,6 +24,7 @@ void Xprint(const char *name, const double *matrix, int row, int column) {
   }
   printf("\n");
 }
+
 
 int main(int argc, char *argv[]) {
   int rowsA, colsB, common;
@@ -44,9 +46,9 @@ int main(int argc, char *argv[]) {
   double C[rowsA * colsB];
   double D[rowsA * colsB];
 
-  enum CBLAS_ORDER order = CblasColMajor;
-  enum CBLAS_TRANSPOSE transA = CblasNoTrans;
-  enum CBLAS_TRANSPOSE transB = CblasNoTrans;
+  // enum CBLAS_ORDER order = CblasColMajor;
+  // enum CBLAS_TRANSPOSE transA = CblasNoTrans;
+  // enum CBLAS_TRANSPOSE transB = CblasNoTrans;
 
   double one = 1.0, zero = 0.0;
 
@@ -55,8 +57,8 @@ int main(int argc, char *argv[]) {
   init(A, rowsA, common);
   init(B, common, colsB);
 
-  cblas_dgemm(order, transA, transB, rowsA, colsB, common, 1.0, A, rowsA, B,
-              common, 0.0, C, rowsA);
+  cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, rowsA, colsB, common, one, A, rowsA, B,
+              common, zero, C, rowsA);
 
   for (i = 0; i < colsB; i++) {
     for (j = 0; j < rowsA; j++) {
